@@ -1,15 +1,15 @@
 public class Weapon {
-    public string name;
-    public EWeaponType type;
-    public int MinDamage { get; }
-    public int MaxDamage { get; }
+    public string Name { get; set; }
+    public EWeaponType Type { get; set; }
+    public double MinDamage { get; set; }
+    public double MaxDamage { get; set; }
     
 
-    public Weapon(string name, int minDamage, int maxDamage, EWeaponType type){
-        this.name = name;
+    public Weapon(string name, double minDamage, double maxDamage, EWeaponType type){
+        Name = name;
         MinDamage = minDamage;
         MaxDamage = maxDamage;
-        this.type = type;
+        Type = type;
     }
 }
 

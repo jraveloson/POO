@@ -1,22 +1,17 @@
 public class Player {
-    private string firstName;
-    private string lastName;
-    public string alias;
-    public string name;
 
-    private string FirstName { get{ return firstName; } }
-    private string LastName { get{ return lastName; } }
-    public string Alias { get{ return alias; } set{ alias = value; } }
-    public string Name { get{ return name; } }
+    private string FirstName { get; }
+    private string LastName { get; }
+    public string Alias { get; }
+    public string Name { get{ return FirstName + " " + LastName; } }
 
-    public Spaceship spaceship { get; }
+    public Spaceship spaceship { get; set;}
 
     public Player(string firstName, string lastName, string alias) {
-        this.firstName = formatName(firstName);
-        this.lastName = formatName(lastName);
-        this.alias = alias;
-        this.name = $"{this.firstName} {this.lastName}";
-        this.spaceship = new Spaceship(100, 50);
+        FirstName = formatName(firstName);
+        LastName = formatName(lastName);
+        Alias = alias;
+        this.spaceship = new Spaceship();
     }
 
     private static string formatName(string name) {
@@ -25,18 +20,18 @@ public class Player {
     }
 
     public override string ToString() {
-        return $"{this.alias} ({this.name})";
+        return $"{Alias} ({Name})";
     }
 
     public override bool Equals(object? obj) {
         if (obj is Player other) {
-            return this.alias == other.alias;
+            return Alias == other.Alias;
         }
         return false;
     }
     public override int GetHashCode()
     {
-        return alias?.ToLower().GetHashCode() ?? 0;
+        return Alias?.ToLower().GetHashCode() ?? 0;
     }
 
 };

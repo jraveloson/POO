@@ -2,10 +2,9 @@ using System;
 using System.Collections.Generic;
 
 public class Armory{
-    private List<Weapon> Weapons;
+    private static List<Weapon> Weapons = new List<Weapon>();
 
     public Armory(){
-        Weapons = new List<Weapon>();
         Init();
     }
 
@@ -19,7 +18,7 @@ public class Armory{
         Console.WriteLine("=== Armory ===");
         foreach (var weapon in Weapons)
         {
-            Console.WriteLine($"{weapon.name} | Damage: {weapon.MinDamage}-{weapon.MaxDamage} | Type: {weapon.type}");
+            Console.WriteLine($"{weapon.Name} | Damage: {weapon.MinDamage}-{weapon.MaxDamage} | Type: {weapon.Type}");
         }
     }
 
@@ -33,8 +32,12 @@ public class Armory{
 
     public void AddWeapon(Weapon weapon)
     {
-        this.Weapons.Add(weapon);
+        Weapons.Add(weapon);
     }
 
+    public static bool IsWeaponFromArmory(Weapon weapon)
+    {
+        return Weapons.Contains(weapon);
+    }
 
 }

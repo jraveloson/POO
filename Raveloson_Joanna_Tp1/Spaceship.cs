@@ -4,21 +4,15 @@ using System.Linq;
 
 public class Spaceship
 {
-    public int MaxStructure { get; }
-    public int MaxShield { get; }
+    public int MaxStructure { get; set; }
+    public int MaxShield { get; set; }
     public int CurrentStructure { get; set; }
     public int CurrentShield { get; set; }
-    public bool IsDestroyed { get { return CurrentStructure == 0; }}
+    public bool IsDestroyed { get { return CurrentStructure <= 0; }}
 
-    public List<Weapon> weapons;
+    public List<Weapon> weapons { get; } = new List<Weapon>();
 
-    public Spaceship(int maxStructure, int maxShield){
-        MaxStructure = maxStructure;
-        MaxShield = maxShield;
-        CurrentStructure = maxStructure;
-        CurrentShield = maxShield;
-        weapons = new List<Weapon>();
-    }
+    public Spaceship(){ }
 
     public void AddWeapon(Weapon weapon){
         if(this.weapons.Count >=3)
@@ -26,12 +20,18 @@ public class Spaceship
             Console.WriteLine("No more than 3 weapons");
             return;
         }
+        if(!Armory.IsWeaponFromArmory(weapon))
+        {
+            Console.WriteLine("This weapon doesn't exist in the armory");
+            return;
+        }
         this.weapons.Add(weapon);
     }
 
     public void RemoveWeapon(Weapon oWeapon)
     {
-        this.weapons.Remove(oWeapon);
+        if(this.weapons.Contains(oWeapon))
+            this.weapons.Remove(oWeapon);
     }
 
     public void ClearWeapons()
@@ -39,7 +39,7 @@ public class Spaceship
        this.weapons.Clear();
     }
 
-     public void ViewWeapons()
+    public void ViewWeapons()
     {
         if (weapons.Count == 0)
         {
@@ -50,7 +50,7 @@ public class Spaceship
         Console.WriteLine("=== Weapons ===");
         foreach (var w in weapons)
         {
-            Console.WriteLine($"{w.name} | Damage: {w.MinDamage}-{w.MaxDamage} | Type: {w.type}");
+            Console.WriteLine($"{w.Name} | Damage: {w.MinDamage}-{w.MaxDamage} | Type: {w.Type}");
         }
     }
 
