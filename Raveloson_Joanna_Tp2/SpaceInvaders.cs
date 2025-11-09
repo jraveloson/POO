@@ -22,7 +22,7 @@ public class SpaceInvaders {
             Console.WriteLine(player.ToString());
         }
         Armory armory = new Armory();
-        Weapon weapon1 = new Weapon("Bomb", 25, 15, EWeaponType.DIRECT);
+        Weapon weapon1 = new Weapon("Bomb", 15, 25, EWeaponType.DIRECT);
         armory.AddWeapon(weapon1);
         spaceInvaders.players[0].spaceship.AddWeapon(weapon1);
         
