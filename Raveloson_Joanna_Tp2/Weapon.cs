@@ -13,7 +13,7 @@ public class Weapon {
         MaxDamage = maxDamage;
         Type = type;
         ReloadTime = reloadTime;
-        TimeBeforeReload = ReloadTime;
+        TimeBeforReload = ReloadTime;
     }
 
     public double Shoot()
@@ -21,12 +21,12 @@ public class Weapon {
         double damage = 0;
         if(ReloadTime > 0)
         {
-            Console.WriteLine($"{Name} reloading... ${TimeBeforeReload} seconds left.");
+            Console.WriteLine($"{Name} reloading... ${TimeBeforReload} seconds left.");
             return 0;
         }
         else if(ReloadTime == 0)
         {
-            if(this.Type == DIRECT)
+            if(this.Type == EWeaponType.DIRECT)
             {
                 // 1 chance sur 10 de rater le tir
                 Random rand = new Random();
@@ -34,23 +34,26 @@ public class Weapon {
                 if(chance == 1)
                 {
                     Console.WriteLine($"{Name} missed the shot!");
-                    damage = 0;
+                    return damage = 0;
                 }
                 else
                 {
                     damage = rand.NextDouble() * (MaxDamage - MinDamage) + MinDamage;
                     Console.WriteLine($"{Name} hit the target for {damage} damage.");
-                    ReloadTime = TimeBeforeReload;
+                    ReloadTime = TimeBeforReload;
+                    return damage;
                 }
             }
-            else if(this.Type == EXPLOSIVE)
+            else if(this.Type == EWeaponType.EXPLOSIVE)
             {
+                Random rand = new Random();
                 // 1 chance sur 4 de rater
                 int chance = rand.Next(1, 5);
                 if(chance == 1)
                 {
                     Console.WriteLine($"{Name} missed the shot!");
                     damage = 0;
+                    return damage;
                 }
                 else
                 {
@@ -58,17 +61,20 @@ public class Weapon {
                     damage = rand.NextDouble() * (MaxDamage - MinDamage) + MinDamage;
                     damage *= 2;
                     Console.WriteLine($"{Name} hit the target for {damage} damage.");
-                    ReloadTime = TimeBeforeReload * 2;
+                    ReloadTime = TimeBeforReload * 2;
+                    return damage;
                 }
             }
-            else if (this.Type == GUIDED)
+            else if (this.Type == EWeaponType.GUIDED)
             {
                 // Dégats minimum garantis
                 damage = MinDamage;
                 Console.WriteLine($"{Name} hit the target for {damage} damage.");
-                ReloadTime = TimeBeforeReload;
+                ReloadTime = TimeBeforReload;
+                return damage;
             }
         }
+        return damage;
     }
 }
 

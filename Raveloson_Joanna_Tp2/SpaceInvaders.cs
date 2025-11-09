@@ -1,20 +1,61 @@
+using Models.SpaceShips;
+using Models;
+
 public class SpaceInvaders {
 
     public List<Player> players = new List<Player>();
+    public List<Spaceship> enemies = new List<Spaceship>();
     SpaceInvaders() {
         Init();
     }
 
     private void Init() {
         Player player1 = new Player("joanna", "raveloson", "jojo");
-        Player player2 = new Player("alice", "dupont", "alice");
-        Player player3 = new Player("bob", "martin", "bobby");
         players.Add(player1);
-        players.Add(player2);
-        players.Add(player3);
+        enemies.Add(new Dart());
+        enemies.Add(new Rocinante());
+        enemies.Add(new ViperMKII());
+        enemies.Add(new Tardis());
+        enemies.Add(new F18()); 
     }
 
-    // Main
+    private void playRound() {
+        foreach (var enemy in enemies)
+        {
+            if (enemy is IAbility abilityEnemy)
+            {
+                abilityEnemy.UseAbility(enemies);
+            }
+
+            if (!enemy.IsDestroyed) {
+                enemy.ShootTarget(players[0].spaceship);
+            }
+        }
+
+        var aliveEnemies = enemies.Where(e => !e.IsDestroyed).ToList();
+        if (aliveEnemies.Count > 0)
+        {
+            double probability = 1.0;
+            foreach (var enemy in aliveEnemies) {
+                if (new Random().NextDouble() < (probability / aliveEnemies.Count)) {
+                    players[0].spaceship.ShootTarget(enemy);
+                    break;
+                }
+                probability += 1.0;
+            }
+        }
+
+        foreach (var player in players)
+        {
+            if (player.spaceship.CurrentShield < player.spaceship.MaxShield)
+            {
+                player.spaceship.CurrentShield += 2;
+                if (player.spaceship.CurrentShield > player.spaceship.MaxShield)
+                    player.spaceship.CurrentShield = player.spaceship.MaxShield;
+            }
+        }
+    }
+
     static void Main(string[] args) {
         SpaceInvaders spaceInvaders = new SpaceInvaders();
         Console.WriteLine("=== Players ===");
@@ -22,13 +63,12 @@ public class SpaceInvaders {
             Console.WriteLine(player.ToString());
         }
         Armory armory = new Armory();
-        Weapon weapon1 = new Weapon("Bomb", 15, 25, EWeaponType.DIRECT);
-        armory.AddWeapon(weapon1);
-        spaceInvaders.players[0].spaceship.AddWeapon(weapon1);
-        
+
         armory.ViewArmory();
 
-        Console.WriteLine("-- " + spaceInvaders.players[0].ToString() + " --");
-        spaceInvaders.players[0].spaceship.ViewShip();
+        while (!spaceInvaders.players[0].spaceship.IsDestroyed && spaceInvaders.enemies.All(e => e.IsDestroyed))
+        {
+            spaceInvaders.playRound();
+        }
     }
 }

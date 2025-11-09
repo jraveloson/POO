@@ -1,3 +1,5 @@
+using Models.SpaceShips;
+
 public class Player {
 
     private string FirstName { get; }

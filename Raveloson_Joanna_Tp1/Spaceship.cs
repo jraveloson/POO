@@ -22,7 +22,7 @@ public class Spaceship
         }
         if(!Armory.IsWeaponFromArmory(weapon))
         {
-            Console.WriteLine("This weapon doesn't exist in the armory");
+            Console.WriteLine($"# {weapon.Name} doesn't exist in the armory");
             return;
         }
         this.weapons.Add(weapon);
