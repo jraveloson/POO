@@ -62,9 +62,8 @@ public class SpaceInvaders {
         foreach (Player player in spaceInvaders.players) {
             Console.WriteLine(player.ToString());
         }
-        Armory armory = new Armory();
 
-        armory.ViewArmory();
+        Armory.ViewArmory();
 
         while (!spaceInvaders.players[0].spaceship.IsDestroyed && spaceInvaders.enemies.All(e => e.IsDestroyed))
         {

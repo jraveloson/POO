@@ -6,13 +6,8 @@ namespace Models.SpaceShips
 {
     public class Tardis : Spaceship, IAbility{
 
-        public Tardis(){
-            MaxStructure = 1;
-            MaxShield = 0;
-            CurrentStructure = MaxStructure;
-            CurrentShield = MaxShield;
-        }
-
+        public Tardis() : base("Tardis", 1, 0, false){}
+    
         public void UseAbility(List<Spaceship> spaceships)
         {
             // Déplacer un vaisseau au hasard et le mettre à un endroit au hasard de la liste

@@ -4,7 +4,7 @@ namespace Models
 {
     public interface IPlayer
     {
-        Spaceship BattleShip { get; set; }
+        Spaceship spaceship { get; set; }
         string Name { get; }
         string Alias { get; }
     }

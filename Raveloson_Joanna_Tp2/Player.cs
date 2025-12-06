@@ -1,19 +1,19 @@
 using Models.SpaceShips;
+using Models;
 
-public class Player {
+public class Player : IPlayer {
 
     private string FirstName { get; }
     private string LastName { get; }
     public string Alias { get; }
     public string Name { get{ return FirstName + " " + LastName; } }
-
-    public Spaceship spaceship { get; set;}
+    public Spaceship spaceship { get; set; }
 
     public Player(string firstName, string lastName, string alias) {
         FirstName = formatName(firstName);
         LastName = formatName(lastName);
         Alias = alias;
-        this.spaceship = new Spaceship();
+        spaceship = new ViperMKII();
     }
 
     private static string formatName(string name) {

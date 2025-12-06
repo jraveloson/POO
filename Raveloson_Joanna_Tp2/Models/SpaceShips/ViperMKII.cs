@@ -5,17 +5,12 @@ namespace Models.SpaceShips
 {
     public class ViperMKII : Spaceship
     {
-        public ViperMKII()
+        public ViperMKII() : base("Viper MK II", 10, 15, false) 
         {
-            MaxStructure = 10;
-            MaxShield = 15;
-            CurrentStructure = MaxStructure;
-            CurrentShield = MaxShield;
-
-            AddWeapon(new Weapon("Mitrailleuse", 6, 8, EWeaponType.DIRECT, 1));
-            AddWeapon(new Weapon("EMG", 1, 7, EWeaponType.EXPLOSIVE, 1.5));
-            AddWeapon(new Weapon("Missile", 4, 100, EWeaponType.GUIDED, 4));
-            }
+            AddWeapon(Armory.CreatWeapon(Armory.GetWeaponByName("Mitrailleuse")));
+            AddWeapon(Armory.CreatWeapon(Armory.GetWeaponByName("EMG")));
+            AddWeapon(Armory.CreatWeapon(Armory.GetWeaponByName("Missile")));
+        }
 
             public override void ShootTarget(Spaceship target)
             {

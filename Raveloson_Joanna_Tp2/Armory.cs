@@ -1,14 +1,10 @@
 using System;
 using System.Collections.Generic;
 
-public class Armory{
-    private static List<Weapon> Weapons = new List<Weapon>();
+public static class Armory{
+    public static List<Weapon> Weapons = new List<Weapon>();
 
-    public Armory(){
-        Init();
-    }
-
-    private void Init(){
+    static Armory(){
         Weapons.Add(new Weapon("Laser", 2, 3, EWeaponType.DIRECT, 2));
         Weapons.Add(new Weapon("Hammer", 1, 8, EWeaponType.EXPLOSIVE, 1.5));
         Weapons.Add(new Weapon("Torpille", 3, 3, EWeaponType.GUIDED, 2));
@@ -19,7 +15,7 @@ public class Armory{
         Weapons.Add(new Weapon("DragonFire", 5, 10, EWeaponType.DIRECT, 3));
     }
 
-    public void ViewArmory(){
+    public static void ViewArmory(){
         Console.WriteLine("=== Armory ===");
         foreach (var weapon in Weapons)
         {
@@ -27,7 +23,7 @@ public class Armory{
         }
     }
 
-    public Weapon? GetWeapon(int index)
+    public static Weapon? GetWeapon(int index)
     {
         if (index >= 0 && index < Weapons.Count)
             return Weapons[index];
@@ -35,14 +31,21 @@ public class Armory{
         return null;
     }
 
-    public void AddWeapon(Weapon weapon)
+    public static Weapon CreatWeapon(Weapon weapon)
     {
-        Weapons.Add(weapon);
+        Weapon w = new Weapon(weapon);
+        if (!IsWeaponFromArmory(w)) { throw new ArmoryException(); }
+        return w;
     }
 
     public static bool IsWeaponFromArmory(Weapon weapon)
     {
-        return Weapons.Contains(weapon);
+        return Weapons.Exists(w => w.Name == weapon.Name);
+    }
+
+    public static Weapon? GetWeaponByName(string name)
+    {
+        return Weapons.FirstOrDefault(w => w.Name == name);
     }
 
 }

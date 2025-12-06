@@ -1,11 +1,15 @@
-public class Weapon {
+using Models.SpaceShips;
+using Models;
+
+public class Weapon : IWeapon {
     public string Name { get; set; }
     public EWeaponType Type { get; set; }
     public double MinDamage { get; set; }
     public double MaxDamage { get; set; }
     public double ReloadTime { get; set; }
     public double TimeBeforReload { get; set; }
-    
+    public bool IsReload => TimeBeforReload <= 0;
+    public double AverageDamage => (MinDamage + MaxDamage) / 2;
 
     public Weapon(string name, double minDamage, double maxDamage, EWeaponType type, double reloadTime){
         Name = name;
@@ -16,9 +20,20 @@ public class Weapon {
         TimeBeforReload = ReloadTime;
     }
 
+    public Weapon(Weapon other)
+    {
+        Name = other.Name;
+        MinDamage = other.MinDamage;
+        MaxDamage = other.MaxDamage;
+        Type = other.Type;
+        ReloadTime = other.ReloadTime;
+        TimeBeforReload = other.TimeBeforReload;
+    }
+
     public double Shoot()
     {
         double damage = 0;
+        Random rand = new Random();
         if(ReloadTime > 0)
         {
             Console.WriteLine($"{Name} reloading... ${TimeBeforReload} seconds left.");
@@ -29,7 +44,6 @@ public class Weapon {
             if(this.Type == EWeaponType.DIRECT)
             {
                 // 1 chance sur 10 de rater le tir
-                Random rand = new Random();
                 int chance = rand.Next(1, 11);
                 if(chance == 1)
                 {
@@ -46,7 +60,6 @@ public class Weapon {
             }
             else if(this.Type == EWeaponType.EXPLOSIVE)
             {
-                Random rand = new Random();
                 // 1 chance sur 4 de rater
                 int chance = rand.Next(1, 5);
                 if(chance == 1)

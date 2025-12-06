@@ -5,14 +5,9 @@ namespace Models.SpaceShips
 {
     public class Dart : Spaceship
     {
-        public Dart()
+        public Dart() : base("Dart", 10, 3, false)
         {
-            MaxStructure = 10;
-            MaxShield = 3;
-            CurrentStructure = MaxStructure;
-            CurrentShield = MaxShield;
-
-            AddWeapon(new Weapon("Laser", 2, 3, EWeaponType.DIRECT, 2));
+            AddWeapon(Armory.CreatWeapon(Armory.GetWeaponByName("Laser")));
         }
 
         public override void ShootTarget(Spaceship target)

@@ -1,5 +1,4 @@
 using Models.SpaceShips;
-using SpaceInvadersArmory;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -11,16 +10,16 @@ namespace Models
     public interface ISpaceship
     {
         string Name { get; set; }
-        double Structure { get; set; }
-        double Shield { get; set; }
+        double MaxStructure { get; set; }
+        double MaxShield { get; set; }
         bool IsDestroyed { get; }
         int MaxWeapons { get; }
-        List<Weapon> Weapons { get; }
+        List<Weapon> weapons { get; }
         double AverageDamages { get; }
         double CurrentStructure { get; set; }
         double CurrentShield { get; set; }
         bool BelongsPlayer { get; }
-        void TakeDamages(double damages);
+        void TakeDamage(double damage);
         void RepairShield(double repair);
         void ShootTarget(Spaceship target);
         void ReloadWeapons();

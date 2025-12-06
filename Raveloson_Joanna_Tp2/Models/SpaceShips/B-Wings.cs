@@ -5,14 +5,9 @@ namespace Models.SpaceShips
 {
     public class B_Wings : Spaceship
     {
-        public B_Wings()
+        public B_Wings() : base("B-Wings", 30, 0, false)
         {
-            MaxStructure = 30;
-            MaxShield = 0;
-            CurrentStructure = MaxStructure;
-            CurrentShield = MaxShield;
-
-            AddWeapon(new Weapon("Hammer", 1, 8, EWeaponType.EXPLOSIVE, 1.5));
+            AddWeapon(Armory.CreatWeapon(Armory.GetWeaponByName("Hammer")));
         }
 
         public override void ShootTarget(Spaceship target)

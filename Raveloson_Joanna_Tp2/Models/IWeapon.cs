@@ -1,6 +1,6 @@
 using System;
 
-namespace SpaceInvadersArmory
+namespace Models
 {
     public interface IWeapon
     {

@@ -5,14 +5,9 @@ namespace Models.SpaceShips
 {
     public class Rocinante : Spaceship
     {
-        public Rocinante()
+        public Rocinante() : base("Rocinante", 3, 5, false)
         {
-            MaxStructure = 3;
-            MaxShield = 5;
-            CurrentStructure = MaxStructure;
-            CurrentShield = MaxShield;
-
-            AddWeapon(new Weapon("Torpille", 3, 3, EWeaponType.GUIDED, 2));
+            AddWeapon(Armory.CreatWeapon(Armory.GetWeaponByName("Torpille")));
         }
 
         public override void TakeDamage(double totalDamage)

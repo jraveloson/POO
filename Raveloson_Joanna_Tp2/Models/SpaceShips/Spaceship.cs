@@ -6,15 +6,29 @@ using Models.SpaceShips;
 namespace Models.SpaceShips
 {
 
-    public class Spaceship
+    public class Spaceship : ISpaceship
     {
+        public string Name { get; set; }
         public double MaxStructure { get; set; }
         public double MaxShield { get; set; }
         public double CurrentStructure { get; set; }
         public double CurrentShield { get; set; }
         public bool IsDestroyed { get { return CurrentStructure <= 0; }}
+        public bool BelongsPlayer { get; private set; }
+        public double AverageDamages => (weapons.Sum(x => x.MinDamage) + weapons.Sum(x => x.MaxDamage)) / 2;
+        public int MaxWeapons { get; } = 3;
 
         public List<Weapon> weapons { get; } = new List<Weapon>();
+
+        public Spaceship(string name, double maxStructure, double maxShield, bool belongsPlayer) 
+        {
+            this.Name = name;
+            this.MaxStructure = maxStructure;
+            this.MaxShield = maxShield;
+            this.CurrentStructure = maxStructure;
+            this.CurrentShield = maxShield;
+            this.BelongsPlayer = belongsPlayer;
+        }
 
         public void AddWeapon(Weapon weapon){
             if(this.weapons.Count >=3)
@@ -56,19 +70,13 @@ namespace Models.SpaceShips
             }
         }
 
-        public double AverageDamages(){
-            if (weapons.Count == 0) return 0;
-
-            return weapons.Average(w => (w.MinDamage + w.MaxDamage) / 2.0);
-        }
-
         public void ViewShip()
         {
             Console.WriteLine("=== Spaceship Info ===");
             Console.WriteLine($"Structure: {CurrentStructure}/{MaxStructure}");
             Console.WriteLine($"Shield: {CurrentShield}/{MaxShield}");
             Console.WriteLine($"Destroyed: {(IsDestroyed ? "Yes" : "No")}");
-            Console.WriteLine($"Average Damage: {AverageDamages():0.0}");
+            Console.WriteLine($"Average Damage: {AverageDamages:0.0}");
             
             ViewWeapons();
         }
@@ -129,6 +137,20 @@ namespace Models.SpaceShips
             }
 
             target.TakeDamage(totalDamage);
+        }
+
+        public void ReloadWeapons()
+        {
+            foreach (var item in weapons)
+            {
+                item.TimeBeforReload--;
+            }
+        }
+
+        public void RepairShield(double repair)
+        {
+            CurrentShield += repair;
+            if (CurrentShield > MaxShield) { CurrentShield = MaxShield; }
         }
     }
 }

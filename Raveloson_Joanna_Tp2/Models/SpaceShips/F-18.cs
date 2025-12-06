@@ -6,12 +6,7 @@ namespace Models.SpaceShips
 {
     public class F18 : Spaceship, IAbility{
 
-        public F18(){
-            MaxStructure = 15;
-            MaxShield = 0;
-            CurrentStructure = MaxStructure;
-            CurrentShield = MaxShield;
-        }
+        public F18() : base("F-18", 15, 0, false){}
 
         public void UseAbility(List<Spaceship> spaceships)
         {
