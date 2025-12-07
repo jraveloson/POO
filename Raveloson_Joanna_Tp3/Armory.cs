@@ -48,4 +48,20 @@ public static class Armory{
         return Weapons.FirstOrDefault(w => w.Name == name);
     }
 
+    public static List<Weapon> Get5StrongestWeaponsByAverageDamage()
+    {
+        return Weapons
+            .OrderByDescending(w => w.AverageDamage)
+            .Take(5)
+            .ToList();
+    }
+
+    public static List<Weapon> Get5HighestMinDamageWeapons()
+    {
+        return Weapons
+            .OrderByDescending(w => w.MinDamage)
+            .Take(5)
+            .ToList();
+    }
+
 }
