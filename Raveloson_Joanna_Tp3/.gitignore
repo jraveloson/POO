@@ -1,0 +1,42 @@
+# Build output
+bin/
+obj/
+out/
+
+# Visual Studio
+.vs/
+*.user
+*.suo
+*.userosscache
+*.sln.docstates
+
+# Visual Studio Code
+.vscode/
+
+# JetBrains Rider
+.idea/
+
+# Packages
+*.nupkg
+*.snupkg
+*.nuspec
+
+# Logs
+*.log
+*.tlg
+*.vsix
+*.pdb
+
+# OS files
+.DS_Store
+Thumbs.db
+
+# Dotnet tools
+*.dotnet_tool.json
+
+# User secrets
+secrets.json
+
+# Temporary files
+*.tmp
+*.temp
